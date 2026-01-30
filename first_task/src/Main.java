@@ -8,4 +8,4 @@ class Main {
         }
         System.out.println(total);
     }
-}
+} //meoooow
