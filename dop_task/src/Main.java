@@ -17,21 +17,21 @@ public class Main {
     public static int checkStats(char[][] board) {
         for (int i = 0; i < 3; i++) {
             if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
-                if (board[i][0] == 'X') return 10;
-                if (board[i][0] == 'O') return -10; //проверяем строки
+                if (board[i][0] == COMPUTER) return 10;
+                if (board[i][0] == PERSON) return -10; //проверяем строки
             }
             if (board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
-                if (board[0][i] == 'X') return 10;
-                if (board[0][i] == 'O') return -10; //проверяем столбцы
+                if (board[0][i] == COMPUTER) return 10;
+                if (board[0][i] == PERSON) return -10; //проверяем столбцы
             }
         }
         if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
-            if (board[0][0] == 'X') return 10;
-            if (board[0][0] == 'O') return -10; //проверяем диагональ слева направо
+            if (board[0][0] == COMPUTER) return 10;
+            if (board[0][0] == PERSON) return -10; //проверяем диагональ слева направо
         }
         if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
-            if (board[0][2] == 'X') return 10;
-            if (board[0][2] == 'O') return -10; // проверяем диагональ справа налево
+            if (board[0][2] == COMPUTER) return 10;
+            if (board[0][2] == PERSON) return -10; // проверяем диагональ справа налево
         }
         return 0; //если выигрыша нет возвращаем 0
     }
@@ -68,9 +68,9 @@ public class Main {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == ' ') { // если клетка пуста
                     if (isComputerTurn) {
-                        board[i][j] = 'X'; // ход пк
+                        board[i][j] = COMPUTER; // ход пк
                     } else {
-                        board[i][j] = 'O'; // ход человека
+                        board[i][j] = PERSON; // ход человека
                     }
 
                     int currentScore = miniMax(board, !isComputerTurn); //сравнение с лучшим ходом
@@ -101,8 +101,12 @@ public class Main {
         while (true) {
             printBoard(board); //выводим доску
 
-            System.out.print("Введите номер клетки от 0 до 8: "); // начинает человек
+            System.out.print("Введите номер клетки от 0 до 8: ");// начинает человек
             int kletka =  scanner.nextInt();
+            if (kletka < 0 || kletka > 8) {
+                System.out.println("Вы ввели неправильную цифру клетки.");
+                continue;
+            }
             int str = kletka / 3;
             int stolb =  kletka % 3; // вычисление координат
 
@@ -111,7 +115,7 @@ public class Main {
                 continue;
             }
 
-            board[str][stolb] = 'O'; // ход человека
+            board[str][stolb] = PERSON; // ход человека
 
             int result = checkStats(board); // проверка
             if (result == -10) {
@@ -131,7 +135,7 @@ public class Main {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (board[i][j] == ' ') {
-                        board[i][j] = 'X';
+                        board[i][j] = COMPUTER;
                         int score = miniMax(board, false);
                         board[i][j] = ' ';
 
@@ -143,7 +147,8 @@ public class Main {
                     }
                 }
             }
-            board[bestI][bestJ] = 'X';
+            board[bestI][bestJ] = COMPUTER;
+            System.out.println("Компьютер сходил в клетку " + (bestI * 3 + bestJ));
 
             if (checkStats(board) == 10) {
                 printBoard(board);
