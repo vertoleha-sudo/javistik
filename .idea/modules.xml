@@ -17,6 +17,7 @@
       <module fileurl="file://$PROJECT_DIR$/9_task/9_task.iml" filepath="$PROJECT_DIR$/9_task/9_task.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/IdeaProjects.iml" filepath="$PROJECT_DIR$/.idea/IdeaProjects.iml" />
       <module fileurl="file://$PROJECT_DIR$/dop_task/dop_task.iml" filepath="$PROJECT_DIR$/dop_task/dop_task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/monkeys/monkeys.iml" filepath="$PROJECT_DIR$/monkeys/monkeys.iml" />
       <module fileurl="file://$PROJECT_DIR$/second_task/second_task.iml" filepath="$PROJECT_DIR$/second_task/second_task.iml" />
       <module fileurl="file://$PROJECT_DIR$/third_task/third_task.iml" filepath="$PROJECT_DIR$/third_task/third_task.iml" />
     </modules>

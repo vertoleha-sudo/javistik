@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static final char COMPUTER = 'X';
     public static final char PERSON = 'O';
+
     public static void printBoard(char[][] board) {
         System.out.println("-------------");
         for (int i = 0; i < 3; i++) {
@@ -35,7 +36,7 @@ public class Main {
         }
         return 0; //если выигрыша нет возвращаем 0
     }
-    public static boolean movesLeft(char[][] board) {
+    public static boolean isMovesLeft(char[][] board) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == ' ') {
@@ -48,7 +49,7 @@ public class Main {
     public static int miniMax(char[][] board, boolean isComputerTurn) {
         int score = checkStats(board);
         if (score != 0) return score; //если не ничья, возвращаем счет
-        if (!movesLeft(board)) return 0; //проверка на ничью (при отсутствии пустых клеток)
+        if (!isMovesLeft(board)) return 0; //проверка на ничью (при отсутствии пустых клеток)
 
         /* компьютер думает что человек идеален, и каждый его ход безошибочен.
         он хочет найти лучший для себя ход, поэтому начинает с минимума(Integer.MIN_VALUE)
@@ -117,14 +118,14 @@ public class Main {
 
             board[str][stolb] = PERSON; // ход человека
 
-            int result = checkStats(board); // проверка
+            int result = checkStats(board);// проверка
             if (result == -10) {
                 printBoard(board);
                 System.out.println("Вы выиграли!");
                 break;
             }
 
-            if (!movesLeft(board)) {
+            if (!isMovesLeft(board)) {
                 printBoard(board);
                 System.out.println("Ничья.");
                 break;
@@ -155,7 +156,7 @@ public class Main {
                 System.out.println("Вы проиграли.");
                 break;
             }
-            if (!movesLeft(board)) {
+            if (!isMovesLeft(board)) {
                 printBoard(board);
                 System.out.println("Ничья.");
                 break;
