@@ -125,6 +125,7 @@ public class Main {
                     System.out.println("Введите айди обезьянки и новое имя с новым возрастом");
                     sc.nextLine();
                     int id = sc.nextInt();
+                    sc.nextLine();
                     String newName = sc.nextLine();
                     int newAge = sc.nextInt();
                     object.Update(id, Main.monkeys, newName, newAge);
