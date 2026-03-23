@@ -3,22 +3,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 interface Feedable {
-    void receiveFeed(); //TODO: реализовать кормление через приложение
+    void receiveFeed();
 }
 interface Accessable {
-    void openAccess(); //TODO: реализовать выдачу разрешения
-    void closeAccess(); //TODO: реализовать забирание разрешения
+    void openAccess();
+    void closeAccess();
 }
 interface Castratable {
-    void acceptCastration(); //TODO: реализовать принятие кастрации :8
+    void acceptCastration();
 }
 
 abstract class Animal {
-    private long id;
-    private String name;
-    private int age;
-    private LocalDate dateOfArrival;
-    private static long nextId = 1;
+    protected long id;
+    protected String name;
+    protected int age;
+    protected LocalDate dateOfArrival;
+    protected static long nextId = 1;
 
     public Animal(String name, int age) {
         this.id = nextId++;
@@ -66,17 +66,18 @@ class Monkey extends Animal implements Castratable, Feedable {
         super(name, age);
     }
 
+    @Override
     public void voice() {
         System.out.println("У-у А-А-А");
     }
 
     @Override
-    public void acceptCastration() {
+    public void acceptCastration() {  //TODO: реализовать принятие кастрации :8
 
     }
 
     @Override
-    public void receiveFeed() {
+    public void receiveFeed() {  //TODO: реализовать кормление через приложение
 
     }
 }
@@ -94,17 +95,18 @@ class Lion extends Animal implements Accessable {
         return super.toString() + ", болен: " + (isSick ? "да" : "нет"); //сначала через if сделал, потом решил тернарным
     }
 
+    @Override
     public void voice() {
         System.out.println("РРррРрр");
     }
 
     @Override
-    public void openAccess() {
+    public void openAccess() {  //TODO: реализовать выдачу разрешения
 
     }
 
     @Override
-    public void closeAccess() {
+    public void closeAccess() {  //TODO: реализовать забирание разрешения
 
     }
 }
@@ -119,23 +121,27 @@ class Penguin extends Animal implements Feedable, Castratable {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
 
     @Override
     public String toString() {
         return super.toString() + ", день рождения: " + dateOfBirth;
     }
 
+    @Override
     public void voice() {
         System.out.println("ГАГгаГАГгагГ");
     }
 
     @Override
-    public void acceptCastration() {
+    public void acceptCastration() {  //TODO: реализовать принятие кастрации :8
 
     }
 
     @Override
-    public void receiveFeed() {
+    public void receiveFeed() {  //TODO: реализовать кормление через приложение
 
     }
 }
@@ -144,6 +150,8 @@ class Koshak extends Animal {
     public Koshak(String name, int age) {
         super(name, age);
     }
+
+    @Override
     public void voice() {
         System.out.println("Мяу, дай пожрать мне");
     }
@@ -161,14 +169,14 @@ public class Main {
     public void callAutocare() {
         for (Animal animal : animals) {
             if (animal instanceof Feedable) {
-                ((Feedable) animal).receiveFeed();
+                ((Feedable) animal).receiveFeed();    //TODO: реализовать кормление через приложение
             }
             if (animal instanceof Accessable) {
-                ((Accessable) animal).openAccess();
-                ((Accessable) animal).closeAccess();
+                ((Accessable) animal).openAccess();   //TODO: реализовать выдачу разрешения
+                ((Accessable) animal).closeAccess();  //TODO: реализовать забирание разрешения
             }
             if (animal instanceof Castratable) {
-                ((Castratable) animal).acceptCastration();
+                ((Castratable) animal).acceptCastration();  //TODO: реализовать принятие кастрации :8
             }
         }
         System.out.println("Автоуход за всеми животными был вызван");
@@ -179,25 +187,18 @@ public class Main {
         Animal animal = null;
         String name;
         int age;
-        boolean isSick;
-        LocalDate dateOfBirth;
-        int year;
-        int month;
-        int day;
+
+        System.out.println("Как зовут ваше животное?");
+        name = sc.nextLine();
+        System.out.println("Сколько лет вашему животному?");
+        age = sc.nextInt();
 
         switch (animalType) {
             case 1:
-                System.out.println("Как зовут обезьянку?");
-                name = sc.nextLine();
-                System.out.println("Сколько лет обезьянке?");
-                age = sc.nextInt();
                 animal = new Monkey(name, age);
                 break;
             case 2:
-                System.out.println("Как зовут льва?");
-                name = sc.nextLine();
-                System.out.println("Сколько лет льву?");
-                age = sc.nextInt();
+                boolean isSick;
                 sc.nextLine();
                 System.out.println("Болеет ли лев? (да или нет)");
                 String answer = sc.nextLine();
@@ -205,10 +206,10 @@ public class Main {
                 animal = new Lion(name, age, isSick);
                 break;
             case 3:
-                System.out.println("Как зовут пингвина?");
-                name = sc.nextLine();
-                System.out.println("Сколько лет пингвину?");
-                age = sc.nextInt();
+                int year;
+                int month;
+                int day;
+                LocalDate dateOfBirth;
                 System.out.println("Введите год рождения");
                 year = sc.nextInt();
                 System.out.println("Введите месяц рождения");
@@ -217,12 +218,9 @@ public class Main {
                 day = sc.nextInt();
                 dateOfBirth = LocalDate.of(year, month, day);
                 animal = new Penguin(name, age, dateOfBirth);
+                sc.nextLine();
                 break;
             case 4:
-                System.out.println("Как зовут кошака?");
-                name = sc.nextLine();
-                System.out.println("Сколько лет кошаку?");
-                age = sc.nextInt();
                 animal = new Koshak(name, age);
                 break;
         }
@@ -278,6 +276,7 @@ public class Main {
                             "\n3. Пингвин" +
                             "\n4.Кошак");
                     animalType = sc.nextInt();
+                    sc.nextLine();
                     object.create(animalType);
                     break;
                 case READ:
