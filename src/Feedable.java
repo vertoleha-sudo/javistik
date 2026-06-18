@@ -1,0 +1,3 @@
+interface Feedable {
+    void receiveFeed();
+}

@@ -1,0 +1,3 @@
+interface Castratable {
+    void acceptCastration();
+}
